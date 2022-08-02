@@ -1,0 +1,3 @@
+[submodule "modules/attentions"]
+	path = modules/attentions
+	url = git@github.com:sooftware/attentions.git
