@@ -65,7 +65,7 @@ class HpDataModule(pl.LightningDataModule):
 
 
 if __name__=="__main__":
-    md = MutationsDataset(split="train", dataset_path="../data/samples_Oleguer.txt")
+    md = MutationsDataset(split="train", dataset_path="../data/samples_Oleguer.csv")
     features, label = md.__getitem__(0)
     print(features.shape)
     print(label)
