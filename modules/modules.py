@@ -71,3 +71,13 @@ class MultiHeadedSelfAttentionModule(nn.Module):
         outputs = self.attention(inputs, inputs, inputs, pos_embedding=pos_embedding, mask=mask)
 
         return self.dropout(outputs)
+
+class TransformerBlock(nn.Module):
+    def __init__(self, d_model, num_heads, dropout_p):
+        super(TransformerBlock, self).__init__()
+        self.multihead_selfattention = MultiHeadedSelfAttentionModule(d_model, num_heads, dropout_p)
+
+
+    def forward(self, inputs, mask):
+        residual = inputs
+        x = self.multihead_selfattention(inputs, )
