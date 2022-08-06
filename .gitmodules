@@ -1,0 +1,3 @@
+[submodule "model/transformer-ingredients"]
+	path = model/transformer-ingredients
+	url = git@github.com:OleguerCanal/transformer-ingredients.git
