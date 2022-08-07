@@ -49,19 +49,23 @@ class MutationsDataset(Dataset):
         return features, label
 
 
-class HpDataModule(pl.LightningDataModule):
-    def __init__(self, config) -> None:
+class MutationsDatamodule(pl.LightningDataModule):
+    def __init__(self, dataset_path, batch_size) -> None:
         super().__init__()
-        self.config = config
+        self.dataset_path = dataset_path
+        self.batch_size = batch_size
 
     def train_dataloader(self):
-        return DataLoader(HpDataset(split="train", **self.config["dataset"]), batch_size=self.config["train"]["batch_size"], shuffle=True)
+        return DataLoader(MutationsDataset(split="train", dataset_path=self.dataset_path),
+                          batch_size=self.config.batch_size, shuffle=True)
 
     def val_dataloader(self):
-        return DataLoader(HpDataset(split="val", **self.config["dataset"]), batch_size=self.config["train"]["batch_size"], shuffle=True)
+        return DataLoader(MutationsDataset(split="val", dataset_path=self.dataset_path),
+                          batch_size=self.config.batch_size, shuffle=True)
 
     def test_dataloader(self):
-        return DataLoader(HpDataset(split="val", **self.config["dataset"]), batch_size=self.config["train"]["batch_size"], shuffle=True)
+        return DataLoader(MutationsDataset(split="val", dataset_path=self.dataset_path),
+                          batch_size=self.config.batch_size, shuffle=True)
 
 
 if __name__=="__main__":
