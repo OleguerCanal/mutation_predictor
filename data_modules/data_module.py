@@ -38,8 +38,7 @@ class MutationsDataset(Dataset):
         row = self.data.iloc[idx]
         sequence = row["sequence"]
         sequence_onehot = self._onehot(sequence)
-        vals = row.drop(['sequence', 'label']).to_numpy().astype(np.float)
-        print(vals)
+        vals = row.drop(['sequence', 'label']).to_numpy().astype(np.float32)
         values = torch.tensor(vals)
         values = values.repeat(41, 1)  # since we only have the features of the center one we repeat them
         features = torch.cat((sequence_onehot, values), 1)
@@ -57,15 +56,15 @@ class MutationsDatamodule(pl.LightningDataModule):
 
     def train_dataloader(self):
         return DataLoader(MutationsDataset(split="train", dataset_path=self.dataset_path),
-                          batch_size=self.config.batch_size, shuffle=True)
+                          batch_size=self.batch_size, shuffle=True)
 
     def val_dataloader(self):
         return DataLoader(MutationsDataset(split="val", dataset_path=self.dataset_path),
-                          batch_size=self.config.batch_size, shuffle=True)
+                          batch_size=self.batch_size, shuffle=True)
 
     def test_dataloader(self):
         return DataLoader(MutationsDataset(split="val", dataset_path=self.dataset_path),
-                          batch_size=self.config.batch_size, shuffle=True)
+                          batch_size=self.batch_size, shuffle=True)
 
 
 if __name__=="__main__":
